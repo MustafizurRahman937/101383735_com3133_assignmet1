@@ -4,20 +4,20 @@ const bcrypt = require('bcrypt');
 
 const resolvers = {
   Query: {
-    // Login logic could be implemented here. 
-    // Note: Returning password is a bad practice. This is just to align with your typeDefs
     login: async (_, { username, email, password }) => {
-      // Ideally, you should use either username or email to log in, not both.
-      const user = await User.findOne({ $or: [{ username }, { email }] });
-      if (!user) {
-        throw new Error('User not found');
-      }
-      const isMatch = await bcrypt.compare(password);
-      if (!isMatch) {
-        throw new Error('Incorrect password');
-      }
-      return user;
-    },
+        // Ideally, you should use either username or email to log in, not both.
+        const user = await User.findOne({ $or: [{ username }, { email }] });
+        if (!user) {
+          throw new Error('User not found');
+        }
+      
+        const isMatch = await bcrypt.compare(password, user.password); // Pass the hashed password from the user object
+        if (!isMatch) {
+          throw new Error('Incorrect password');
+        }
+      
+        return user;
+      },      
     getAllEmployees: async () => {
       return await Employee.find({});
     },
