@@ -2,7 +2,7 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers');
+const resolvers = require('./graphql/resolver');
 
 
 async function startServer() {
@@ -15,7 +15,7 @@ async function startServer() {
     await apolloServer.start();
     apolloServer.applyMiddleware({ app, path: '/graphql' });
     //Change this part to your own MongoDB link
-    await mongoose.connect('mongodb+srv://<username>:<password>@cluster0.55mfjdg.mongodb.net/comp3133-assmt01?retryWrites=true&w=majority', {
+    await mongoose.connect('mongodb+srv://mostafizurregina:assignment01@cluster0.kv5asxb.mongodb.net/comp3133_assignment01?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }).then(() => console.log('Connected to MongoDB'))
